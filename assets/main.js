@@ -3,6 +3,9 @@ let arrPares = [2, 4, 6, 8, 10]
 let arrImp = [1, 3, 5, 7, 9]
 let kenzie = ['k', 'e', 'n', 'z', 'i', 'e']
 let academy = ["a", "c", "a", "d", "e", "m", "y"]
+let fillArr = [1, 4, 5, 2, 4, 6, 11, 90, 784, 4, 2]
+let fillArr2 = [1, 4, 5, 2, 4, 6, 11, 90, 784, 4, 2]
+
 
 // testFunctions
 
@@ -26,6 +29,13 @@ function testStr(element) {
 // testFilter()
 // testFind()
 // testFindIndex()
+// testSome()
+// testEvery()
+// testFill()
+// testIncludes()
+// testIndexOf()
+// testConcat()
+// testJoin()
 
 
 // forEach
@@ -161,6 +171,183 @@ function newReduce(arr, callback, acc) {
 // some 
 
 
-// function newSome(arr, callback) {
+function newSome(arr, callback) {
+    for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        if (callback(element) === true) {
+            return true
+        }
+    }
+    return false
+}
+
+function testSome() {
+    let some1 = arrPares.some(greaterThan5)
+    let newSome1 = newSome(arrPares, greaterThan5)
+    let some2 = academy.some(testStr)
+    let newSome2 = newSome(academy, testStr)
+
+    console.log(some1)
+    console.log(newSome1)
+    console.log(some2)
+    console.log(newSome2)
+}
+
+
+// every
+
+
+function newEvery(arr, callback) {
+    for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        if (callback(element) === false) {
+            return false
+        }
+    }
+    return true
+}
+
+function testEvery() {
+    let every1 = arrPares.every(greaterThan5)
+    let newEvery1 = newEvery(arrPares, greaterThan5)
+    let every2 = academy.every(testStr)
+    let newEvery2 = newEvery(academy, testStr)
+
+    console.log(every1)
+    console.log(newEvery1)
+    console.log(every2)
+    console.log(newEvery2)
+}
+
+
+// fill
+
+
+function newFill(arr, valor, inicio = 0, fim = arr.length) {
+    let cont = 1
+
+    if (typeof inicio === 'number' && inicio > 0 && fim === arr.length) {
+        for (let i = inicio; i < fim; i++) {
+            arr[i] = valor
+        }
+    } else if (typeof inicio === 'number' && inicio < 0 && fim === arr.length) {
+        for (let i = 0; i < Math.abs(inicio); i++) {
+            arr[arr.length - cont] = valor
+            cont++
+        }
+    } else if (typeof inicio === 'number' && inicio > 0 && fim !== arr.length) {
+        for (let i = inicio; i < fim; i++) {
+            arr[i] = valor
+        }
+    } else if (typeof inicio === 'number' && inicio < 0 && fim !== arr.length) {
+        for (let i = 0; i < (arr.length - fim); i++) {
+            arr[arr.length - cont] = valor
+            cont++
+        }
+    }
+    return arr
+}
+
+
+// includes
+
+
+function newIncludes(arr, element, index = 0) {
+    for (let i = index; i < arr.length; i++) {
+        if (element === arr[i]) {
+            return true
+        }
+    }
+    return false
+}
+
+function testIncludes() {
+    let includes1 = arrPares.includes(4)
+    let newIncludes1 = newIncludes(arrPares, 4)
+    let includes2 = academy.includes('c', 3)
+    let newIncludes2 = newIncludes(academy, 'c', 3)
+
+    console.log(includes1)
+    console.log(newIncludes1)
+    console.log(includes2)
+    console.log(newIncludes2)
+}
+
+
+// indexOf
+
+
+function newIndexOf(arr, element, index = 0) {
+    if (index >= arr.length) {
+        return -1
+    }
+
+    if (index >= 0) {
+        for (let i = index; i < arr.length; i++){
+            if (element === arr[i]) {
+                return i
+            }
+        }
+    } else if (index < 0) {
+        for (let i = arr.length - (index - 1); i >= 0; i--){
+            if (element === arr[i]){
+                return i
+            }
+        }
+    }
+    return -1
+}
+
+function testIndexOf() {
+    let indexOf1 = fillArr.indexOf(4, 2)
+    let newIndexOf1 = newIndexOf(fillArr, 4, 2)
+    let indexOf2 = academy.indexOf('a')
+    let newIndexOf2 = newIndexOf(academy, 'a')
+
+    console.log(indexOf1)
+    console.log(newIndexOf1)
+    console.log(indexOf2)
+    console.log(newIndexOf2)
+}
+
+
+// concat
+
+
+// function newConcat(arr, valor1, valor2, ...valorN) {
     
 // }
+
+
+// join
+
+
+function newJoin(arr, separador = ',') {
+    let str = ''
+
+    if (arr.length === 0) {
+        return str
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        if (i === 0) {
+            str += arr[i]
+        } else {
+            str += separador
+            str += arr[i]
+        }
+    }
+    return str
+}
+
+function testJoin() {
+    let join1 = fillArr.join(',')
+    let newJoin1 = newJoin(fillArr)
+    let join2 = academy.join('')
+    let newJoin2 = newJoin(academy, '')
+
+    console.log(join1)
+    console.log(newJoin1)
+    console.log(join2)
+    console.log(newJoin2)
+}
